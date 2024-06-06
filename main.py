@@ -11,15 +11,13 @@ import os
 st.set_page_config(page_title="Chat with the Streamlit docs, powered by LlamaIndex", page_icon="🦙", layout="centered", initial_sidebar_state="auto", menu_items=None)
 
 # Attempt to retrieve the OpenAI API key from Streamlit secrets
-if "openai" in st.secrets and "api_key" in st.secrets["openai"]:
-    openai_api_key = st.secrets["openai"]["api_key"]
-    # Set the OpenAI API key for the OpenAI library
-    openai.api_key = openai_api_key
-    # Display the API key (or part of it) to verify it's working
-    st.write("OpenAI API key successfully retrieved:", openai_api_key[:5] + "..." + openai_api_key[-5:])
-else:
-    st.error("OpenAI API key not found in Streamlit secrets. Please check your configuration.")
-    st.stop()
+openai_api_key = st.secrets["openai"]["api_key"]
+
+# Display the API key (or part of it) to verify it's working
+st.write("OpenAI API key successfully retrieved:", openai_api_key[:5] + "..." + openai_api_key[-5:])
+
+# Set the OpenAI API key for the OpenAI library
+openai.api_key = openai_api_key
 
 st.title("Chat with the Streamlit docs, powered by LlamaIndex 💬🦙")
 st.info("Check out the full tutorial to build this app in our [blog post](https://blog.streamlit.io/build-a-chatbot-with-custom-data-sources-powered-by-llamaindex/)", icon="📃")
@@ -27,7 +25,6 @@ st.info("Check out the full tutorial to build this app in our [blog post](https:
 # Debug: Check if the data directory exists and list its contents
 if not os.path.exists("./data"):
     st.error("The data directory does not exist. Please make sure it is placed at the root level of your project.")
-    st.stop()
 else:
     st.write("Contents of the data directory:", os.listdir("./data"))
 
@@ -65,4 +62,5 @@ if st.session_state.messages[-1]["role"] != "assistant":
             st.write(response.response)
             message = {"role": "assistant", "content": response.response}
             st.session_state.messages.append(message)  # Add response to message history
+
 
