@@ -11,13 +11,13 @@ import os
 st.set_page_config(page_title="Chat with the Streamlit docs, powered by LlamaIndex", page_icon="🦙", layout="centered", initial_sidebar_state="auto", menu_items=None)
 
 # Attempt to retrieve the OpenAI API key from Streamlit secrets
-#openai_api_key = st.secrets["openai"]["api_key"]
+openai_api_key = st.secrets["openai"]["api_key"]
 
 # Display the API key (or part of it) to verify it's working
-#st.write("OpenAI API key successfully retrieved:", openai_api_key[:5] + "..." + openai_api_key[-5:])
+st.write("OpenAI API key successfully retrieved:", openai_api_key[:5] + "..." + openai_api_key[-5:])
 
 # Set the OpenAI API key for the OpenAI library
-#openai.api_key = openai_api_key
+openai.api_key = openai_api_key
 
 st.title("Chat with the Streamlit docs, powered by LlamaIndex 💬🦙")
 st.info("Check out the full tutorial to build this app in our [blog post](https://blog.streamlit.io/build-a-chatbot-with-custom-data-sources-powered-by-llamaindex/)", icon="📃")
