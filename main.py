@@ -6,6 +6,9 @@ try:
 except ImportError:
     from llama_index.core import VectorStoreIndex, ServiceContext, Document, SimpleDirectoryReader
 
+# Set the page configuration at the very beginning
+st.set_page_config(page_title="Chat with the Streamlit docs, powered by LlamaIndex", page_icon="🦙", layout="centered", initial_sidebar_state="auto", menu_items=None)
+
 # Attempt to retrieve the OpenAI API key from Streamlit secrets
 openai_api_key = st.secrets["openai"]["api_key"]
 
@@ -14,8 +17,6 @@ st.write("OpenAI API key successfully retrieved:", openai_api_key[:5] + "..." + 
 
 # Set the OpenAI API key for the OpenAI library
 openai.api_key = openai_api_key
-
-st.set_page_config(page_title="Chat with the Streamlit docs, powered by LlamaIndex", page_icon="🦙", layout="centered", initial_sidebar_state="auto", menu_items=None)
 
 st.title("Chat with the Streamlit docs, powered by LlamaIndex 💬🦙")
 st.info("Check out the full tutorial to build this app in our [blog post](https://blog.streamlit.io/build-a-chatbot-with-custom-data-sources-powered-by-llamaindex/)", icon="📃")
