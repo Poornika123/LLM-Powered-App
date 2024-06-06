@@ -5,6 +5,7 @@ try:
     from llama_index import VectorStoreIndex, ServiceContext, Document, SimpleDirectoryReader
 except ImportError:
     from llama_index.core import VectorStoreIndex, ServiceContext, Document, SimpleDirectoryReader
+import os
 
 # Set the page configuration at the very beginning
 st.set_page_config(page_title="Chat with the Streamlit docs, powered by LlamaIndex", page_icon="🦙", layout="centered", initial_sidebar_state="auto", menu_items=None)
@@ -20,7 +21,13 @@ openai.api_key = openai_api_key
 
 st.title("Chat with the Streamlit docs, powered by LlamaIndex 💬🦙")
 st.info("Check out the full tutorial to build this app in our [blog post](https://blog.streamlit.io/build-a-chatbot-with-custom-data-sources-powered-by-llamaindex/)", icon="📃")
-         
+
+# Debug: Check if the data directory exists and list its contents
+if not os.path.exists("./data"):
+    st.error("The data directory does not exist. Please make sure it is placed at the root level of your project.")
+else:
+    st.write("Contents of the data directory:", os.listdir("./data"))
+
 if "messages" not in st.session_state.keys():  # Initialize the chat messages history
     st.session_state.messages = [
         {"role": "assistant", "content": "Ask me a question about Streamlit's open-source Python library!"}
